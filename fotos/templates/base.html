@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de la Comunión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Asegúrate de que la ruta sea correcta -->
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive;
+            margin: 0px;
+            padding: 0;
+            background-image: url("/media/fotos_fondo/fondo3.jpg");
+            background-size: cover; /* que rellene todo */
+            background-repeat: no-repeat;
+            background-position: center 10%; /* centra en horizontal y baja verticalmente */
+            background-attachment: fixed;
+            color: #6a1b9a;
+            min-height: 100vh;
+        }
+
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+        .upload-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+            z-index: 1000;
+        }
+        .upload-button:hover {
+            background-color: #e555a0;
+        }
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>  
