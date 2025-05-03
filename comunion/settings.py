@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-o+wyo^z_@uh!!7vg@9yh0b)547biyrksb!4g4o#9wnz=^j+-#_"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['comunionnerea.onrender.com']
-
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -126,6 +126,8 @@ STATICFILES_DIRS = [
 # Archivos de medios (imágenes subidas por los usuarios)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if not DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
