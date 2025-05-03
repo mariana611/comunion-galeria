@@ -6,6 +6,7 @@ from django.http import FileResponse
 import os
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 # Vista para acceder a la galería
 def galeria(request):
@@ -19,18 +20,8 @@ def galeria(request):
     #fotos = Foto.objects.all()
     #return render(request, 'fotos/galeria.html', {'fotos': fotos})
 # Vista para comentar en una foto
-def comentar(request, foto_id):
-    if not request.session.get("acceso_permitido"):  # Verifica si el usuario tiene acceso
-        return redirect("acceso")
 
-    foto = get_object_or_404(Foto, id=foto_id)
 
-    if request.method == "POST":
-        texto = request.POST.get("comentario")
-        if texto:
-            Comentario.objects.create(foto=foto, texto=texto)
-
-    return redirect("galeria")
 
 
 # Vista de acceso con clave
@@ -57,6 +48,8 @@ def subir_foto(request):
         form = FotoForm()
 
     return render(request, 'fotos/subir_foto.html', {'form': form})
+
+@csrf_protect
 def comentar(request, foto_id):
     if not request.session.get("acceso_permitido"):  # Verifica si el usuario tiene acceso
         return redirect("acceso")
@@ -72,6 +65,7 @@ def comentar(request, foto_id):
 
 
 # Vista para borrar una foto
+@csrf_protect
 def borrar_foto(request, foto_id):
     if request.method == 'POST':
         clave_ingresada = request.POST.get("clave")

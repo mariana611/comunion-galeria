@@ -28,6 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['comunionnerea.onrender.com', 'comunion-galeria-production-6433.up.railway.app']
 
+
 #ALLOWED_HOSTS = []
 
 
@@ -153,3 +154,8 @@ if not DEBUG:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CLAVE_DE_ACCESO = "comunionNerea"
 CLAVE_BORRAR_FOTO = 'pilusa'
+CSRF_TRUSTED_ORIGINS = [
+    'https://comunion-galeria-production-6433.up.railway.app',
+    'http://comunion-galeria-production-6433.up.railway.app',
+]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
