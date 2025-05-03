@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from .models import Foto, Comentario
 from .forms import FotoForm
+from django.http import FileResponse
+import os
+from django.shortcuts import get_object_or_404
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 # Vista para acceder a la galería
 def galeria(request):
@@ -80,3 +84,8 @@ def borrar_foto(request, foto_id):
             return render(request, "fotos/galeria.html", {"error": error})
 
     return render(request, "fotos/galeria.html")  # Si no es POST, simplemente muestra la galería
+def serve_image(request, filename):
+    file_path = os.path.join(settings.MEDIA_ROOT, filename)
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'))
+    raise Http404()
