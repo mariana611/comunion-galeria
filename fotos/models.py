@@ -13,7 +13,7 @@ class Foto(models.Model):
     categoria = models.CharField(max_length=20, choices=CATEGORIAS)
     fecha_subida = models.DateTimeField(auto_now_add=True)
     hash_imagen = models.CharField(max_length=255, null=True, blank=True)  # Aquí haces que sea opcional
-
+    url_imagen = models.URLField(blank=True, null=True)  # Campo para la URL de Cloudinary
     def save(self, *args, **kwargs):
         # Calculamos el hash de la imagen antes de guardar
         if not self.hash_imagen and self.imagen:

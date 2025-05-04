@@ -8,13 +8,15 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Foto
 # Vista para acceder a la galería
-def galeria(request):
-    if not request.session.get("acceso_permitido"):  # Verifica si el usuario tiene acceso
-        return redirect("acceso")
 
-    fotos = Foto.objects.all().order_by('-fecha_subida')  # Muestra las fotos más recientes primero
-    return render(request, 'fotos/galeria.html', {'fotos': fotos})
+
+def galeria(request):
+    fotos = Foto.objects.all()
+    return render(request, 'galeria.html', {'fotos': fotos})
+
 
 #def galeria(request):
     #fotos = Foto.objects.all()
@@ -39,15 +41,22 @@ def acceso(request):
 
 
 def subir_foto(request):
-    if request.method == 'POST':
-        form = FotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('galeria')  # Redirigir a la galería después de subir la foto
+    if request.method == 'POST' and request.FILES['imagen']:
+        imagen = request.FILES['imagen']
+        # Subir la imagen a Cloudinary
+        upload_result = cloudinary.uploader.upload(imagen)
+        # Obtener la URL de la imagen
+        foto_url = upload_result['url']
+
+        # Guardar la foto en la base de datos
+        foto = Foto(imagen=imagen, url_imagen=foto_url)
+        foto.save()
+
+        return redirect('galeria')
     else:
         form = FotoForm()
 
-    return render(request, 'fotos/subir_foto.html', {'form': form})
+    return render(request, 'subir_foto.html', {'form': form})
 
 @csrf_protect
 def comentar(request, foto_id):
@@ -65,7 +74,7 @@ def comentar(request, foto_id):
 
 
 # Vista para borrar una foto
-@csrf_protect
+
 # Vista para borrar una foto
 @csrf_protect
 def borrar_foto(request, foto_id):
