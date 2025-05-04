@@ -66,15 +66,30 @@ def comentar(request, foto_id):
 
 # Vista para borrar una foto
 @csrf_protect
+# Vista para borrar una foto
+@csrf_protect
 def borrar_foto(request, foto_id):
     if request.method == 'POST':
         clave_ingresada = request.POST.get("clave")
         if clave_ingresada == settings.CLAVE_BORRAR_FOTO:
             foto = get_object_or_404(Foto, id=foto_id)
+
+            # Aquí eliminarás el archivo físico de la imagen en el almacenamiento local
+            if foto.imagen:
+                # Asegúrate de que el archivo existe y eliminarlo
+                try:
+                    # Obtén la ruta absoluta del archivo
+                    archivo_path = foto.imagen.path
+                    if os.path.exists(archivo_path):
+                        os.remove(archivo_path)
+                except Exception as e:
+                    print(f"Error al intentar eliminar la imagen: {e}")
+
+            # Elimina la entrada en la base de datos
             foto.delete()
             return redirect('galeria')
         else:
             error = "Clave incorrecta. No tienes permiso para borrar esta foto."
             return render(request, "fotos/galeria.html", {"error": error})
 
-    return render(request, "fotos/galeria.html")  # Si no es POST, simplemente muestra la galería
+    return render(request, "fotos/galeria.html")

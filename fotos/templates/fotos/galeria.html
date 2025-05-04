@@ -147,9 +147,9 @@
     <div class="modal-content">
         <img id="modalImagen" src="" alt="Foto">
          <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
-        {% if request.session.acceso_permitido %}
-            <button class="modal-delete" onclick="mostrarClave()">🗑</button>
-        {% endif %}
+
+        <button class="modal-delete" onclick="mostrarClave()">🗑</button>
+
         <div class="modal-comentarios" id="modalComentarios"></div>
         <form id="modalForm" class="modal-form" method="post">
             {% csrf_token %}
