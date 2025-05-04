@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "fotos",
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 MIDDLEWARE = [
@@ -159,3 +164,12 @@ CSRF_TRUSTED_ORIGINS = [
     'http://comunion-galeria-production-6433.up.railway.app',
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+cloudinary.config(
+    cloud_name='dnmwdxicx',  # Sustituye con tu Cloud Name
+    api_key='978861818679252',        # Sustituye con tu API Key
+    api_secret='tW-ecrsD4kLPFvfydtQoF6wzHgQ'   # Sustituye con tu API Secret
+)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Si también quieres almacenar los archivos estáticos en Cloudinary, agrega:
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
