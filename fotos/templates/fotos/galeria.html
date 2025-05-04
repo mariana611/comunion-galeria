@@ -145,8 +145,8 @@
     <button class="modal-prev" onclick="changeFoto(-1)">❮</button>
     <button class="modal-next" onclick="changeFoto(1)">❯</button>
     <div class="modal-content">
-        <img id="modalImagen" src="" alt="">
-        <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
+        <img id="modalImagen" src="" alt="Foto">
+         <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
         {% if request.session.acceso_permitido %}
             <button class="modal-delete" onclick="mostrarClave()">🗑</button>
         {% endif %}
@@ -204,6 +204,9 @@
             form.action = "/fotos/borrar_foto/" + fotos[currentIndex].id + "/";
             document.getElementById("claveInput").value = clave;
             form.submit();
+            // Elimina la foto del DOM si es exitosa
+            document.querySelector(`[src="${fotos[currentIndex].url}"]`).remove();
+            closeModal();
         }
     }
 </script>
