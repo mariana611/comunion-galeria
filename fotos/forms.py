@@ -10,15 +10,7 @@ class FotoForm(forms.ModelForm):
         model = Foto
         fields = ['imagen', 'categoria']
 
-    def clean_imagen(self):
-        imagen = self.cleaned_data.get('imagen')
 
-        # Verificar si ya existe una foto con el mismo hash_imagen
-        hash_imagen = Foto.generate_hash(imagen)
-        if Foto.objects.filter(hash_imagen=hash_imagen).exists():
-            raise ValidationError("Ya existe una foto con este archivo. Por favor, usa otro archivo.")
-
-        return imagen
 
 
 class ComentarioForm(forms.ModelForm):
