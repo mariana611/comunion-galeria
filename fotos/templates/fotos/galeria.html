@@ -40,6 +40,7 @@
         left: 30px;
         font-size: 20px;
         color: white;
+        display: none; /* Están ocultos inicialmente */
     }
 
     /* Estilo para el botón de eliminar (papelera) */
@@ -48,6 +49,7 @@
         right: 30px;
         font-size: 20px;
         color: white;
+        display: none; /* Están ocultos inicialmente */
     }
 
     /* Asegúrate de que los botones estén siempre visibles dentro del modal */
@@ -88,9 +90,9 @@
     <button class="modal-next" onclick="changeFoto(1)">❯</button>
     <div class="modal-content">
         <img id="modalImagen" src="" alt="Foto">
-        <!-- Botón de descarga siempre visible -->
+        <!-- Botón de descarga, inicialmente oculto -->
         <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
-        <!-- Botón de eliminar siempre visible -->
+        <!-- Botón de eliminar, inicialmente oculto -->
         <button class="modal-delete" onclick="mostrarClave()">🗑</button>
 
         <div class="modal-comentarios" id="modalComentarios"></div>
@@ -119,6 +121,7 @@
 
     let currentIndex = 0;
 
+    // Función para abrir el modal
     function openModal(index) {
         currentIndex = index;
         const foto = fotos[currentIndex];
@@ -128,18 +131,30 @@
             c => `<p><strong>${c.fecha}</strong>: ${c.texto}</p>`
         ).join('');
         document.getElementById("modalForm").action = "/fotos/comentar/" + foto.id + "/";
+
+        // Mostrar los botones de descarga y eliminar cuando se abra el modal
+        document.querySelector('.modal-download').style.display = 'block';
+        document.querySelector('.modal-delete').style.display = 'block';
+
         document.getElementById("fotoModal").style.display = "block";
     }
 
+    // Función para cerrar el modal
     function closeModal() {
         document.getElementById("fotoModal").style.display = "none";
+
+        // Ocultar los botones de descarga y eliminar cuando se cierre el modal
+        document.querySelector('.modal-download').style.display = 'none';
+        document.querySelector('.modal-delete').style.display = 'none';
     }
 
+    // Función para cambiar la foto en el modal
     function changeFoto(step) {
         currentIndex = (currentIndex + step + fotos.length) % fotos.length;
         openModal(currentIndex);
     }
 
+    // Función para mostrar el formulario de clave de eliminación
     function mostrarClave() {
         const clave = prompt("Introduce la clave para borrar la foto:");
         if (clave !== null) {
