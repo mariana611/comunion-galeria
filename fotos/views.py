@@ -78,8 +78,3 @@ def borrar_foto(request, foto_id):
             return render(request, "fotos/galeria.html", {"error": error})
 
     return render(request, "fotos/galeria.html")  # Si no es POST, simplemente muestra la galería
-def serve_image(request, filename):
-    file_path = os.path.join(settings.MEDIA_ROOT, filename)
-    if os.path.exists(file_path):
-        return FileResponse(open(file_path, 'rb'))
-    raise Http404()

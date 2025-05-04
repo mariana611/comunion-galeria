@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('fotos/', include('fotos.urls')),
     path('', lambda request: redirect('acceso')),
-    path('media/<str:filename>', serve_image),  # Servir archivos media
+
 ]
 
 # Esto solo sirve archivos media/ en modo DEBUG, pero Render usa DEBUG = False
