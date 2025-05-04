@@ -195,7 +195,16 @@ cloudinary.config(
     api_key='978861818679252',        # Sustituye con tu API Key
     api_secret='tW-ecrsD4kLPFvfydtQoF6wzHgQ'   # Sustituye con tu API Secret
 )
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Si también quieres almacenar los archivos estáticos en Cloudinary, agrega:
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+# Configuración de Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dnmwdxicx',  # Reemplaza con tu Cloud Name
+    'API_KEY': '978861818679252',  # Reemplaza con tu API Key
+    'API_SECRET': 'tW-ecrsD4kLPFvfydtQoF6wzHgQ',  # Reemplaza con tu API Secret
+}
+
+# Configuración del almacenamiento de archivos estáticos en Cloudinary
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
