@@ -41,18 +41,11 @@ def acceso(request):
 
 
 def subir_foto(request):
-    if request.method == 'POST' and request.FILES['imagen']:
-        imagen = request.FILES['imagen']
-        # Subir la imagen a Cloudinary
-        upload_result = cloudinary.uploader.upload(imagen)
-        # Obtener la URL de la imagen
-        foto_url = upload_result['url']
-
-        # Guardar la foto en la base de datos
-        foto = Foto(imagen=imagen, url_imagen=foto_url)
-        foto.save()
-
-        return redirect('galeria')
+    if request.method == 'POST':
+        form = FotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('galeria')  # Redirigir a la galería después de subir la foto
     else:
         form = FotoForm()
 
