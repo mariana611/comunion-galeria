@@ -1,6 +1,7 @@
 from django.db import models
 import hashlib
 from cloudinary.models import CloudinaryField
+
 # Modelo para las fotos
 class Foto(models.Model):
     CATEGORIAS = [
@@ -12,7 +13,6 @@ class Foto(models.Model):
     categoria = models.CharField(max_length=20, choices=CATEGORIAS)
     fecha_subida = models.DateTimeField(auto_now_add=True)
     hash_imagen = models.CharField(max_length=255, null=True, blank=True)  # Aquí haces que sea opcional
-
 
     def save(self, *args, **kwargs):
         # Calculamos el hash de la imagen antes de guardar
