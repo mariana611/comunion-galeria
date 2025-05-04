@@ -35,8 +35,25 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://comunion-galeria-production-6f96.up.railway.app'
+    'https://comunion-galeria-production-6f96.up.railway.app/'
 ]
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 
 
