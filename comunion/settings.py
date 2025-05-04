@@ -30,10 +30,11 @@ SECRET_KEY = "django-insecure-o+wyo^z_@uh!!7vg@9yh0b)547biyrksb!4g4o#9wnz=^j+-#_
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'comunion-galeria-production-6f96.up.railway.app/',
+    'comunion-galeria-production-6f96.up.railway.app',
     '127.0.0.1',
-    'localhost'
+    'localhost',
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     'https://comunion-galeria-production-6f96.up.railway.app/'
 ]
