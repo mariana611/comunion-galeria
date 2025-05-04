@@ -56,7 +56,7 @@ def subir_foto(request):
     else:
         form = FotoForm()
 
-    return render(request, 'subir_foto.html', {'form': form})
+    return render(request, 'fotos/subir_foto.html', {'form': form})
 
 @csrf_protect
 def comentar(request, foto_id):
