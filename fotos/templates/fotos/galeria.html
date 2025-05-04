@@ -123,6 +123,11 @@
     .modal-form button:hover {
         background-color: #C8A2C8;
     }
+
+    /* Asegura que los botones de descarga y papelera sean visibles */
+    .modal-download, .modal-delete {
+        z-index: 2;
+    }
 </style>
 {% endblock %}
 
@@ -146,7 +151,7 @@
     <button class="modal-next" onclick="changeFoto(1)">❯</button>
     <div class="modal-content">
         <img id="modalImagen" src="" alt="Foto">
-         <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
+        <a id="modalDownload" class="modal-download" href="" download>⬇ Descargar</a>
 
         <button class="modal-delete" onclick="mostrarClave()">🗑</button>
 
@@ -199,11 +204,12 @@
 
     function mostrarClave() {
         const clave = prompt("Introduce la clave para borrar la foto:");
-        if (clave !== null) {
+        if (clave !== null && clave.trim() !== "") {
             const form = document.getElementById("deleteForm");
             form.action = "/fotos/borrar_foto/" + fotos[currentIndex].id + "/";
             document.getElementById("claveInput").value = clave;
             form.submit();
+
             // Elimina la foto del DOM si es exitosa
             document.querySelector(`[src="${fotos[currentIndex].url}"]`).remove();
             closeModal();
